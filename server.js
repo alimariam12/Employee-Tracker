@@ -29,8 +29,6 @@ function runSearch() {
           "Add Department",
           "Add Role",
           "Add Employee",
-          "Update Employee Role",
-          "Remove Employee",
           "Exit",
         ],
       },
@@ -60,15 +58,7 @@ function runSearch() {
         case "Add Employee":
           addEmployee();
           break;
-
-        case "Update Employee Role":
-          updateEmployeeRole();
-          break;
-
-        case "Remove Employee":
-          removeEmployee();
-          break;
-
+          
         case "Exit":
           connection.end();
           break;
@@ -76,29 +66,29 @@ function runSearch() {
     });
 }
 
-// function viewDepartment(){
-//     connection.query("SELECT * FROM departments", function(err, res) {
-//       if (err) throw err;
-//       console.table(res);
-//       runSearch();
-//     });
-// }
+function viewDepartment(){
+    connection.query("SELECT * FROM departments", function(err, res) {
+      if (err) throw err;
+      console.table(res);
+      runSearch();
+    });
+}
 
-// function viewRoles(){
-//     connection.query("SELECT * FROM roles", function(err, res) {
-//       if (err) throw err;
-//       console.table(res);
-//       runSearch();
-//     });
-// }
+function viewRoles(){
+    connection.query("SELECT * FROM roles", function(err, res) {
+      if (err) throw err;
+      console.table(res);
+      runSearch();
+    });
+}
 
-// function viewEmployees(){
-//   connection.query("SELECT * FROM employees", function(err, res) {
-//     if (err) throw err;
-//     console.table(res);
-//     runSearch();
-//   });
-// }
+function viewEmployees(){
+  connection.query("SELECT * FROM employees", function(err, res) {
+    if (err) throw err;
+    console.table(res);
+    runSearch();
+  });
+}
 
 function addDepartment() {
   inquirer
@@ -110,15 +100,14 @@ function addDepartment() {
       },
     ])
     .then(function (res) {
-      connection.query(
-        "INSERT INTO departments SET ? ",
-        { name: res.deptName },
-        function (err, res) {
-          if (err) throw err;
-          console.table(res);
-          runSearch();
-        }
-      );
+      connection.query("INSERT INTO departments SET ? ", {
+        name: res.deptName,
+      });
+      connection.query("SELECT * FROM departments", function (err, res) {
+        if (err) throw err;
+        console.table(res);
+        runSearch();
+      });
     });
 }
 
@@ -141,20 +130,17 @@ function addRole() {
         name: "deptID",
       },
     ])
-    .then(function (answer) {
-      connection.query(
-        "INSERT INTO roles SET ?",
-        {
-          title: answer.roleName,
-          salary: answer.roleSalary,
-          department_id: answer.deptID,
-        },
-        function (err, answer) {
-          if (err) throw err;
-          console.table(answer);
-        }
-      );
-      runSearch();
+    .then(function (res) {
+      connection.query("INSERT INTO roles SET ?", {
+        title: res.roleName,
+        salary: res.roleSalary,
+        department_id: res.deptID,
+      });
+      connection.query("SELECT * FROM roles", function (err, res) {
+        if (err) throw err;
+        console.table(res);
+        runSearch();
+      });
     });
 }
 
@@ -182,46 +168,17 @@ function addEmployee() {
         name: "managerID",
       },
     ])
-    .then(function (answer) {
-      connection.query(
-        "INSERT INTO employees (first_name, last_name, role_id, manager_id) VALUE (?,?,?,?)",
-        [answer.firstName, answer.lastName, answer.roleID, answer.managerID],
-        function (err, res) {
-          if (err) throw err;
-          console.table(res);
-          runSearch();
-        }
-      );
+    .then(function (res) {
+      connection.query("INSERT INTO employees SET ?", {
+        first_name: res.firstName,
+        last_name: res.lastName,
+        role_id: res.roleID,
+        manager_id: res.managerID,
+      });
+      connection.query("SELECT * FROM employees", function (err, res) {
+        if (err) throw err;
+        console.table(res);
+        runSearch();
+      });
     });
-}
-
-function updateEmployeeRole() {
-  inquirer.prompt([
-    {
-      type: "input",
-      message: "What is the ID of the employee whose role is being chamged?",
-      name: "employeeID",
-    },
-    {
-      type: "input",
-      message: "What is the ID of their new role?",
-      name: "newRoleID",
-    },
-  ]);
-  // .then(function(data){
-  //
-  // })
-}
-
-function removeEmployee() {
-  inquirer.prompt([
-    {
-      type: "input",
-      message: "What is the ID of the employee that is being removed?",
-      name: "employeeInfo",
-    },
-  ]);
-  // .then(function(data){
-
-  // })
 }
