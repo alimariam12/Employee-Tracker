@@ -1,5 +1,3 @@
-# Employee-Tracker
-# Employee-Tracker
 <h1 align="center">Employee Tracker </h1>
   
   ![badge](https://img.shields.io/badge/license-MIT-green)<br />
