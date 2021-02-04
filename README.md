@@ -2,16 +2,16 @@
   
   ![badge](https://img.shields.io/badge/license-MIT-green)<br />
 
-  ## Description
-   For this assignment, we need to build an application to make it easier for a company to manager their employees using `node`, `inquirer`, and `MySQL`.
   ## Table of Contents
   - [Description](#description)
   - [Installation](#installation)
   - [Usage](#usage)
   - [License](#license)
-  - [Contributing](#contributing)
-  - [Tests](#tests)
   - [Questions](#questions)
+  
+    ## Description
+   For this assignment, we need to build an application to make it easier for a company to manager their employees using `node`, `inquirer`, and `MySQL`.
+   
   ## Installation
   To install:
   - A new repository for the assignment and clone to repository `git@github.com:alimariam12/Employee-Tracker.git` to the terminal.
