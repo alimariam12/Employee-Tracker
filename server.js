@@ -29,6 +29,8 @@ function runSearch() {
           "Add Department",
           "Add Role",
           "Add Employee",
+          "Update Employee Role",
+          "Remove Employee",
           "Exit",
         ],
       },
@@ -58,7 +60,15 @@ function runSearch() {
         case "Add Employee":
           addEmployee();
           break;
-          
+
+        case "Update Employee Role":
+          updateEmployeeRole();
+          break;
+
+        case "Remove Employee":
+          removeEmployee();
+          break;
+
         case "Exit":
           connection.end();
           break;
@@ -66,24 +76,24 @@ function runSearch() {
     });
 }
 
-function viewDepartment(){
-    connection.query("SELECT * FROM departments", function(err, res) {
-      if (err) throw err;
-      console.table(res);
-      runSearch();
-    });
+function viewDepartment() {
+  connection.query("SELECT * FROM departments", function (err, res) {
+    if (err) throw err;
+    console.table(res);
+    runSearch();
+  });
 }
 
-function viewRoles(){
-    connection.query("SELECT * FROM roles", function(err, res) {
-      if (err) throw err;
-      console.table(res);
-      runSearch();
-    });
+function viewRoles() {
+  connection.query("SELECT * FROM roles", function (err, res) {
+    if (err) throw err;
+    console.table(res);
+    runSearch();
+  });
 }
 
-function viewEmployees(){
-  connection.query("SELECT * FROM employees", function(err, res) {
+function viewEmployees() {
+  connection.query("SELECT * FROM employees", function (err, res) {
     if (err) throw err;
     console.table(res);
     runSearch();
@@ -180,5 +190,41 @@ function addEmployee() {
         console.table(res);
         runSearch();
       });
+    });
+}
+function updateEmployeeRole() {
+  inquirer
+    .prompt([
+      {
+        type: "input",
+        message: "Which employee would you like to update?",
+        name: "employeeUpdate",
+      },
+      {
+        type: "input",
+        message: "What are you going to update?",
+        name: "roleUpdate",
+      },
+    ])
+    .then(function (res) {
+      // connection.query("UPDATE employees SET ? WHERE ?", {
+      //   first_name: res.employeeUpdate,
+      //   role_id: res.roleUpdate,
+      // });
+      // connection.query("SELECT * FROM roles", function (err, res) {
+      //   if (err) throw err;
+      //   console.table(res);
+      //   runSearch();
+      // });
+      connection.query(
+        "UPDATE employees SET role_id=? WHERE first_name= ?",
+        [res.employeeUpdate, res.roleUpdate]);
+
+        connection.query("SELECT * FROM roles", function (err, res) {
+          if (err) throw err;
+          console.table(res);
+          runSearch();
+        }
+      );
     });
 }
