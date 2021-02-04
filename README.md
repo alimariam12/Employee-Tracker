@@ -19,6 +19,7 @@
   - Open terminal on VSC and run `npm install`. When you have the prompts writter you will then run `node index.js` to answer the prompts.
   ## Usage
   Screenshots of application
+  
 <img width="466" alt="Screen Shot 2021-02-03 at 9 54 44 PM" src="https://user-images.githubusercontent.com/71665063/106842988-9f4b2280-666a-11eb-9b7c-9fe523322a41.png">
 <img width="425" alt="Screen Shot 2021-02-03 at 9 54 58 PM" src="https://user-images.githubusercontent.com/71665063/106842991-a07c4f80-666a-11eb-9b40-b9caa0c8661f.png">
 <img width="357" alt="Screen Shot 2021-02-03 at 9 55 31 PM" src="https://user-images.githubusercontent.com/71665063/106842995-a2461300-666a-11eb-8aaf-b8b7a56ee360.png">
